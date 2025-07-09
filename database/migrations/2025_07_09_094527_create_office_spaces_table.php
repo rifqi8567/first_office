@@ -13,6 +13,17 @@ return new class extends Migration
     {
         Schema::create('office_spaces', function (Blueprint $table) {
             $table->id();
+            $table->string('name');  //max255
+            $table->string('thumbanil');
+            $table->string('address');
+            $table->boolean('is_open');
+            $table->boolean('is_full_booked');
+            $table->unsignedInteger('price');   //data nya gk boleh negatif
+            $table->unsignedInteger('duration');
+            $table->text('about');  //255 +
+            $table->foreignId('city_id')->constrained()->cascadeOnDelete();  //constrained = menghubungkan dengan table city
+            $table->string('slug')->unique();  //kalo officespace nya sama butuh kode unique agar mencegah error
+            $table->softDeletes();
             $table->timestamps();
         });
     }
